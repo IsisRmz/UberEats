@@ -4,23 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".RegistroActivity">
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
-
-    <ImageView
-        android:id="@+id/ivLogin"
-        android:layout_width="match_parent"
-        android:layout_height="166dp"
-        app:srcCompat="@drawable/login_1172195" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="36dp" />
+        android:layout_height="60dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +18,8 @@
 
         <Space
             android:layout_width="80dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +30,7 @@
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
+                android:layout_height="45dp"
                 android:ems="10"
                 android:hint="Nombre"
                 android:inputType="textPersonName" />
@@ -50,9 +40,45 @@
                 android:layout_height="50dp" />
 
             <EditText
+                android:id="@+id/editTextAdress"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="Dirección"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <EditText
+                android:id="@+id/editTexUser"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="Usuario"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <EditText
                 android:id="@+id/editTextPass"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="45dp"
                 android:ems="10"
                 android:hint="Contraseña"
                 android:inputType="textPassword" />
@@ -62,30 +88,16 @@
                 android:layout_height="50dp" />
 
             <Button
-                android:id="@+id/btnIniciar"
+                android:id="@+id/btnRegistrarse"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:onClick="iniciarS"
-                android:text="Iniciar Sesión"
-                android:textSize="20dp"/>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-            <Button
-                android:id="@+id/btnRegistrar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:onClick="registrarse"
-                android:text="Registrarse"
-                android:textSize="20dp"/>
+                android:text="Registrarse" />
 
         </LinearLayout>
 
         <Space
-            android:layout_width="80dp"
+            android:layout_width="85dp"
             android:layout_height="match_parent" />
     </LinearLayout>
-
 </LinearLayout>

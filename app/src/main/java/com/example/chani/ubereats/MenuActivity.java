@@ -225,7 +225,7 @@ ListView lvtiendas;
             }
             return null;
         }
-
+//COMENTARIO CHINGÖN
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);

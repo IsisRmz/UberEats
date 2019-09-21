@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             try {
-                connection = new URL("http://192.168.1.74/cursoAndroid/vista/usuario/iniciarSesion.php?usuario="+strings[0]+"&password="+strings[1]).openConnection();
+                connection = new URL("http://172.18.26.67/cursoAndroid/vista/usuario/iniciarSesion.php?usuario="+strings[0]+"&password="+strings[1]).openConnection();
                 InputStream inputStream = (InputStream) connection.getContent();
                 byte[] buffer = new byte[10000];
                 int size = inputStream.read(buffer);

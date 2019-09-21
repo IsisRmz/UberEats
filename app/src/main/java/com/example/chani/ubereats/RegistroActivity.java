@@ -94,7 +94,7 @@ public class RegistroActivity extends AppCompatActivity {
             Log.d("registro", params);
             //preparar la conexión
             try {
-                URL url=new URL("http://192.168.1.74/cursoAndroid/vista/Usuario/crearUsuario.php");
+                URL url=new URL("http://172.18.26.67/cursoAndroid/vista/Usuario/crearUsuario.php");
                 HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 
                 //para informar la ide de informacion

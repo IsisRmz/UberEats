@@ -3,9 +3,12 @@ package com.example.chani.ubereats;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -53,7 +56,7 @@ ListView lvtiendas;
         protected ArrayList<Tienda> doInBackground(Void... voids) {
             try {
                 //Conexión para recibir datos y acomodarlos por objetos dentro de un array
-                URL url = new URL("http://192.168.1.74/cursoAndroid/vista/tienda/obtenerTiendas.php");
+                URL url = new URL("http://172.18.26.67/cursoAndroid/vista/tienda/obtenerTiendas.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -89,12 +92,19 @@ ListView lvtiendas;
 
 
         @Override
-        protected void onPostExecute(ArrayList<Tienda> tiendas) {
+        protected void onPostExecute(final ArrayList<Tienda> tiendas) {
             super.onPostExecute(tiendas);
             lvtiendas = findViewById(R.id.lvtiendas);
             //Adaptador de la listview
             AdapterTiendas adapter = new AdapterTiendas(MenuActivity.this,tiendas);
             lvtiendas.setAdapter(adapter);
+            lvtiendas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(MenuActivity.this, TiendaProductosActivity.class);
+                    intent.putExtra("tienda", tiendas.get(i));
+                }
+            });
         }
     }
 }

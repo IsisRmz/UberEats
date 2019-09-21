@@ -3,11 +3,17 @@ package com.example.chani.ubereats;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -72,6 +78,40 @@ ListView lvtiendas;
                     Toast.makeText(this, "Eliminar", Toast.LENGTH_SHORT).show();
                     new EliminarTienda().execute(tiendas.get(info.position));
                     return true;
+            case R.id.contextNotification:
+                int nNotificationId = 1;
+                String channelID = "my_channel_01";
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelID);
+                Intent intent1 = new Intent(getApplicationContext(), MenuActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(MenuActivity.this, 0, intent1, 0);
+                NotificationManager notificationManager1;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    CharSequence name = "Nombre";
+                    String description = "Descripcion";
+                    int importancia = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(channelID, name, importancia);
+                    channel.setDescription(description);
+                    channel.enableLights(true);
+                    channel.enableVibration(true);
+                    channel.setVibrationPattern(new long[]{100,200,300,400,500,600,400,300,200,100});
+                    notificationManager1 = getSystemService(NotificationManager.class);
+                    notificationManager1.createNotificationChannel(channel);
+                    builder = new NotificationCompat.Builder(getApplicationContext(), channelID);
+                }
+                    builder.setSmallIcon(R.drawable.ic_launcher_background)
+                            .setContentTitle("Titulo")
+                            .setContentText("Texto")
+                            .setContentIntent(pendingIntent)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText("Much longer text that cannot fit one line..."))
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    notificationManager1 = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager1.notify(nNotificationId, builder.build());
+
+
+
+
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }

@@ -17,7 +17,7 @@ import java.util.List;
 
 import modelos.Tienda;
 
-
+//Adaptador para las tiendas, usando list_store_item como layout
 public class AdapterTiendas extends ArrayAdapter {
 
     private Context context;

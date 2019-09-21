@@ -1,5 +1,5 @@
 package modelos;
-
+//Metodo para modelo de datos TIENDA
 public class Tienda {
     private int id;
     private String nombre;

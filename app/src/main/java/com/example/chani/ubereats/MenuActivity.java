@@ -34,7 +34,7 @@ import java.util.List;
 import modelos.Tienda;
 
 public class MenuActivity extends AppCompatActivity {
-
+//Declaración de listview
 ListView lvtiendas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +44,16 @@ ListView lvtiendas;
         new fetchTiendas().execute();
 
     }
+    //Tarea Async para la petición de datos en este caso las tiendas
+    // El primer parametro, VOID es lo que recibe, segundo es avance (casi siempre int) y el ultimo es que regresa
+    class fetchTiendas extends AsyncTask<Void, Integer, ArrayList<Tienda> >{
 
-    class fetchTiendas extends AsyncTask<Void, Integer, List<Tienda> >{
-
-        List<Tienda> tiendas;
+        ArrayList<Tienda> tiendas = new ArrayList<>();
         @Override
-        protected List<Tienda> doInBackground(Void... voids) {
+        protected ArrayList<Tienda> doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://172.18.26.67/cursoAndroid/vista/tienda/obtenerTiendas.php");
+                //Conexión para recibir datos y acomodarlos por objetos dentro de un array
+                URL url = new URL("http://192.168.1.74/cursoAndroid/vista/tienda/obtenerTiendas.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -60,13 +62,15 @@ ListView lvtiendas;
                 while ((output = bufferedReader.readLine())!= null){
                     stringBuilder.append(output);
                 }
+                //Hacemos un JSONArray con el texto obtenido
                 JSONArray jsonArray = new JSONArray(stringBuilder.toString());
                 for (int n = 0; n <jsonArray.length(); n++){
+                    //Separamos por objetos y guardamos cada objeto en el ListArray
                     JSONObject jsonObject = jsonArray.getJSONObject(n);
                     Tienda tienda = new Tienda();
                     tienda.setDescripcion(jsonObject.getString("descripcion"));
                     tienda.setDireccion(jsonObject.getString("direccion"));
-                    tienda.setId(jsonObject.getInt("id"));
+                    tienda.setId(jsonObject.getInt("idtienda"));
                     tienda.setLatitud(jsonObject.getString("latitud"));
                     tienda.setLongitud(jsonObject.getString("longitud"));
                     tienda.setNombre(jsonObject.getString("nombre"));
@@ -83,10 +87,12 @@ ListView lvtiendas;
             return null;
         }
 
+
         @Override
-        protected void onPostExecute(List<Tienda> tiendas) {
+        protected void onPostExecute(ArrayList<Tienda> tiendas) {
             super.onPostExecute(tiendas);
             lvtiendas = findViewById(R.id.lvtiendas);
+            //Adaptador de la listview
             AdapterTiendas adapter = new AdapterTiendas(MenuActivity.this,tiendas);
             lvtiendas.setAdapter(adapter);
         }

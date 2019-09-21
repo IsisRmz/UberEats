@@ -10,6 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +46,7 @@ public class TiendaProductosActivity extends AppCompatActivity implements OnMapR
 
     private MapView mapView;
     private GoogleMap googleMap;
+    public ListView lvproductos;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     Tienda tienda = null;
     TextView lblNombreTienda, lblDescripcionTienda;
@@ -64,7 +68,7 @@ public class TiendaProductosActivity extends AppCompatActivity implements OnMapR
         lblNombreTienda = findViewById(R.id.lblNombreTienda);
         lblNombreTienda.setText(tienda.getNombre());
         lblDescripcionTienda.setText(tienda.getDescripcion());
-
+        new fetchProductos().execute(tienda.getId());
     }
 
     @Override
@@ -125,12 +129,12 @@ public class TiendaProductosActivity extends AppCompatActivity implements OnMapR
 
     class fetchProductos extends AsyncTask<Integer, Integer, ArrayList<Producto>>{
 
-        ArrayList<Producto> productos;
+        ArrayList<Producto> productos = new ArrayList<>();
         @Override
         protected ArrayList<Producto> doInBackground(Integer... integers) {
             try {
                 //Conexión para recibir datos y acomodarlos por objetos dentro de un array
-                URL url = new URL("http://172.18.26.67/cursoAndroid/vista/producto/obtenerProductos.php");
+                URL url = new URL("http://172.18.26.67/cursoAndroid/vista/producto/obtenerProductosPorTienda.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoInput(true);
@@ -152,6 +156,7 @@ public class TiendaProductosActivity extends AppCompatActivity implements OnMapR
                 while ((output = bufferedReader.readLine())!= null){
                     stringBuilder.append(output);
                 }
+                Log.i("OK", stringBuilder.toString());
                 //Hacemos un JSONArray con el texto obtenido
                 JSONArray jsonArray = new JSONArray(stringBuilder.toString());
                 for (int n = 0; n <jsonArray.length(); n++){
@@ -175,6 +180,23 @@ public class TiendaProductosActivity extends AppCompatActivity implements OnMapR
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(final ArrayList<Producto> productos) {
+            super.onPostExecute(productos);
+            lvproductos = findViewById(R.id.lvproductos);
+            //Adaptador de la listview
+            AdapterProductos adapter = new AdapterProductos(TiendaProductosActivity.this,productos);
+            lvproductos.setAdapter(adapter);
+            lvproductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(TiendaProductosActivity.this, ProductoActivity.class);
+                    intent.putExtra("tienda", productos.get(i));
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

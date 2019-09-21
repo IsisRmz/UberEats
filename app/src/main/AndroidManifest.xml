@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_android_map_api_key" />
-        <activity android:name=".TiendaProductosActivity"></activity>
+        <activity android:name=".ProductoActivity"></activity>
+
+        <activity android:name=".TiendaProductosActivity" />
+
         <activity android:name=".RecyclerActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MenuActivity" />
@@ -26,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_android_map_api_key" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

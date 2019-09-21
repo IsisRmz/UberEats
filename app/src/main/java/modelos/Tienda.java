@@ -1,6 +1,9 @@
 package modelos;
+
+import java.io.Serializable;
+
 //Metodo para modelo de datos TIENDA
-public class Tienda {
+public class Tienda implements Serializable {
     private int id;
     private String nombre;
     private String direccion;

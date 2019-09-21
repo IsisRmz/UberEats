@@ -93,6 +93,7 @@ ListView lvtiendas;
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(MenuActivity.this, TiendaProductosActivity.class);
                     intent.putExtra("tienda", tiendas.get(i));
+                    startActivity(intent);
                 }
             });
         }

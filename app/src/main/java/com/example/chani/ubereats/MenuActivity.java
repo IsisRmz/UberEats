@@ -10,19 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,7 +54,7 @@ ListView lvtiendas;
                 String output;
                 while ((output = bufferedReader.readLine())!= null){
                     stringBuilder.append(output);
-                }
+                }.
                 //Hacemos un JSONArray con el texto obtenido
                 JSONArray jsonArray = new JSONArray(stringBuilder.toString());
                 for (int n = 0; n <jsonArray.length(); n++){
